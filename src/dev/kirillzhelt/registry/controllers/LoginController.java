@@ -7,7 +7,8 @@ public class LoginController {
     private LoginView loginView;
     private LoginModel loginModel;
 
-    public static void main(String[] argv) {
+    public LoginController() {
+        loginView = new LoginView();
 
     }
 }
