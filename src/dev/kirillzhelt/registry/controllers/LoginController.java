@@ -9,7 +9,7 @@ public class LoginController {
     private LoginModel loginModel;
 
     public LoginController() {
-        loginView = new LoginView();
+        loginView = new LoginView(this);
         loginModel = new LoginModel();
     }
 
