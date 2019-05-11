@@ -1,6 +1,7 @@
 package dev.kirillzhelt.registry.controllers;
 
 import dev.kirillzhelt.registry.models.LoginModel;
+import dev.kirillzhelt.registry.models.UserType;
 import dev.kirillzhelt.registry.views.LoginView;
 
 public class LoginController {
@@ -9,6 +10,10 @@ public class LoginController {
 
     public LoginController() {
         loginView = new LoginView();
+        loginModel = new LoginModel();
+    }
 
+    public void loginUser(String login, String password) {
+        UserType userType = loginModel.authenticateUser(login, password);
     }
 }

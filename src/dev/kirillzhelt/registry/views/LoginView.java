@@ -1,6 +1,8 @@
 package dev.kirillzhelt.registry.views;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginView extends JFrame {
 
@@ -19,5 +21,12 @@ public class LoginView extends JFrame {
 
         pack();
         setVisible(true);
+
+        jButtonLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
     }
 }
