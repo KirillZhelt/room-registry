@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class UsersSQLiteJDBCConnection extends SQLiteJDBCConnection {
 
-    public UsersSQLiteJDBCConnection(String databasePath) {
-        super(databasePath);
+    public UsersSQLiteJDBCConnection() {
+        super("users.sqlite");
     }
 
     public String selectUserType(String login, String password) {
