@@ -7,6 +7,6 @@ public class LoginModel {
     }
 
     public UserType authenticateUser(String login, String password) {
-        return UserType.Manager;
+        return null;
     }
 }

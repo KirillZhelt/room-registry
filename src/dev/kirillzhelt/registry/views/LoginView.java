@@ -32,4 +32,11 @@ public class LoginView extends JFrame {
             }
         });
     }
+
+    public void showInvalidLoginOrPassword() {
+        jTextFieldLogin.setText("");
+        jPasswordField.setText("");
+
+        jLabelError.setText("Invalid login or password");
+    }
 }
