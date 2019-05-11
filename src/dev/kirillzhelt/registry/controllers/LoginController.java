@@ -3,6 +3,7 @@ package dev.kirillzhelt.registry.controllers;
 import dev.kirillzhelt.registry.models.LoginModel;
 import dev.kirillzhelt.registry.models.UserType;
 import dev.kirillzhelt.registry.views.LoginView;
+import netscape.security.UserTarget;
 
 import java.awt.event.WindowEvent;
 
@@ -27,5 +28,7 @@ public class LoginController {
         System.out.println(userType);
 
         loginView.dispatchEvent(new WindowEvent(loginView, WindowEvent.WINDOW_CLOSING));
+
+        new RegistryController(userType);
     }
 }
