@@ -19,7 +19,7 @@ public class LoginView extends JFrame {
         super("Login");
 
         setContentPane(jPanelMain);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         pack();
         setVisible(true);

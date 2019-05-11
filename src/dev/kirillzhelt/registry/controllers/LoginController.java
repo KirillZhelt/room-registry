@@ -24,8 +24,8 @@ public class LoginController {
             return;
         }
 
-        loginView.dispatchEvent(new WindowEvent(loginView, WindowEvent.WINDOW_CLOSING));
-
         System.out.println(userType);
+
+        loginView.dispatchEvent(new WindowEvent(loginView, WindowEvent.WINDOW_CLOSING));
     }
 }
