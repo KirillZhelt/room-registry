@@ -12,6 +12,14 @@ public class RegistryView extends JFrame {
 
     public RegistryView(RegistryController registryController, ArrayList<Command> commandHub,
                         ArrayList<String> commandNames) {
+        super("Registry");
 
+        setContentPane(jPanelMain);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        // TODO: add buttons from commands and create listeners
+        
+        pack();
+        setVisible(true);
     }
 }
