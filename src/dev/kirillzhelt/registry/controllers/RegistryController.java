@@ -1,11 +1,16 @@
 package dev.kirillzhelt.registry.controllers;
 
+import dev.kirillzhelt.registry.models.RegistryModel;
 import dev.kirillzhelt.registry.models.UserType;
+import dev.kirillzhelt.registry.views.RegistryView;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
 
 public class RegistryController {
+
+    // TODO: from static to non-static
+
     public static final EnumMap<UserType, ArrayList<Command>> commandHubsForUserTypes =
         new EnumMap<UserType, ArrayList<Command>>(UserType.class) {{
            put(UserType.Manager, new ArrayList<Command>() {{
@@ -32,6 +37,9 @@ public class RegistryController {
                 add("Book keys"); }});
         }};
 
+    private RegistryView registryView;
+    private RegistryModel registryModel;
+
     public static void getInformation() {
     }
 
@@ -52,7 +60,9 @@ public class RegistryController {
     }
 
     private void createMenuForm(ArrayList<Command> commandHub, ArrayList<String> commandNames) {
-        System.out.println(commandHub);
+        registryView = new RegistryView(this, commandHub, commandNames);
+
+        //System.out.println(commandHub);
         System.out.println(commandNames);
     }
 
