@@ -9,19 +9,17 @@ import java.util.EnumMap;
 
 public class RegistryController {
 
-    // TODO: from static to non-static
-
-    public static final EnumMap<UserType, ArrayList<Command>> commandHubsForUserTypes =
+    public final EnumMap<UserType, ArrayList<Command>> commandHubsForUserTypes =
         new EnumMap<UserType, ArrayList<Command>>(UserType.class) {{
            put(UserType.Manager, new ArrayList<Command>() {{
-               add(RegistryController::getInformation);
-               add(RegistryController::formReport); }});
+               add(RegistryController.this::getInformation);
+               add(RegistryController.this::formReport); }});
            put(UserType.Administrator, new ArrayList<Command>() {{
-               add(RegistryController::getInformation);
-               add(RegistryController::formReport);
-               add(RegistryController::transferRoom); }});
+               add(RegistryController.this::getInformation);
+               add(RegistryController.this::formReport);
+               add(RegistryController.this::transferRoom); }});
            put(UserType.Superintendent, new ArrayList<Command>() {{
-               add(RegistryController::bookKeys); }});
+               add(RegistryController.this::bookKeys); }});
     }};
 
     public static final EnumMap<UserType, ArrayList<String>> commandNamesForUserTypes =
@@ -35,35 +33,26 @@ public class RegistryController {
                 add("Transfer room"); }});
             put(UserType.Superintendent, new ArrayList<String>() {{
                 add("Book keys"); }});
-        }};
+    }};
 
     private RegistryView registryView;
     private RegistryModel registryModel;
 
-    public static void getInformation() {
+    public void getInformation() {
     }
 
-    public static void formReport() {
-
+    public void formReport() {
     }
 
-    public static void transferRoom() {
-
+    public void transferRoom() {
     }
 
-    public static void bookKeys() {
-
+    public void bookKeys() {
     }
 
     public RegistryController(UserType userType) {
-        createMenuForm(commandHubsForUserTypes.get(userType), commandNamesForUserTypes.get(userType));
+        registryView = new RegistryView(this, commandHubsForUserTypes.get(userType),
+            commandNamesForUserTypes.get(userType));
+
     }
-
-    private void createMenuForm(ArrayList<Command> commandHub, ArrayList<String> commandNames) {
-        registryView = new RegistryView(this, commandHub, commandNames);
-
-        //System.out.println(commandHub);
-        System.out.println(commandNames);
-    }
-
 }
