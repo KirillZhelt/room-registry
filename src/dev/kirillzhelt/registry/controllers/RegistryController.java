@@ -1,22 +1,27 @@
 package dev.kirillzhelt.registry.controllers;
 
+import dev.kirillzhelt.registry.models.RegistryModel;
 import dev.kirillzhelt.registry.models.UserType;
+import dev.kirillzhelt.registry.views.RegistryView;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
 public class RegistryController {
-    public static final EnumMap<UserType, ArrayList<Command>> commandHubsForUserTypes =
-        new EnumMap<UserType, ArrayList<Command>>(UserType.class) {{
-           put(UserType.Manager, new ArrayList<Command>() {{
-               add(RegistryController::getInformation);
-               add(RegistryController::formReport); }});
-           put(UserType.Administrator, new ArrayList<Command>() {{
-               add(RegistryController::getInformation);
-               add(RegistryController::formReport);
-               add(RegistryController::transferRoom); }});
-           put(UserType.Superintendent, new ArrayList<Command>() {{
-               add(RegistryController::bookKeys); }});
+
+    private final EnumMap<UserType, ArrayList<ActionListener>> commandHubsForUserTypes =
+        new EnumMap<UserType, ArrayList<ActionListener>>(UserType.class) {{
+           put(UserType.Manager, new ArrayList<ActionListener>() {{
+               add(RegistryController.this::getInformation);
+               add(RegistryController.this::formReport); }});
+           put(UserType.Administrator, new ArrayList<ActionListener>() {{
+               add(RegistryController.this::getInformation);
+               add(RegistryController.this::formReport);
+               add(RegistryController.this::transferRoom); }});
+           put(UserType.Superintendent, new ArrayList<ActionListener>() {{
+               add(RegistryController.this::bookKeys); }});
     }};
 
     public static final EnumMap<UserType, ArrayList<String>> commandNamesForUserTypes =
@@ -30,30 +35,30 @@ public class RegistryController {
                 add("Transfer room"); }});
             put(UserType.Superintendent, new ArrayList<String>() {{
                 add("Book keys"); }});
-        }};
+    }};
 
-    public static void getInformation() {
+    private RegistryView registryView;
+    private RegistryModel registryModel;
+
+    public void getInformation(ActionEvent e) {
+        System.out.println("getInformation");
     }
 
-    public static void formReport() {
-
+    public void formReport(ActionEvent e) {
+        System.out.println("formReport");
     }
 
-    public static void transferRoom() {
-
+    public void transferRoom(ActionEvent e) {
+        System.out.println("transferRoom");
     }
 
-    public static void bookKeys() {
-
+    public void bookKeys(ActionEvent e) {
+        System.out.println("bookKeys");
     }
 
     public RegistryController(UserType userType) {
-        createMenuForm(commandHubsForUserTypes.get(userType), commandNamesForUserTypes.get(userType));
-    }
+        registryView = new RegistryView(this, commandHubsForUserTypes.get(userType),
+            commandNamesForUserTypes.get(userType));
 
-    private void createMenuForm(ArrayList<Command> commandHub, ArrayList<String> commandNames) {
-        System.out.println(commandHub);
-        System.out.println(commandNames);
     }
-
 }
