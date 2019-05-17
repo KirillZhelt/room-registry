@@ -19,7 +19,7 @@ public class LoginModel {
             return UserType.Manager;
         } else if (userTypeString.equals("Administrator")) {
             return UserType.Administrator;
-        } else if (userTypeString.equals("Superintendant")) {
+        } else if (userTypeString.equals("Superintendent")) {
             return UserType.Superintendent;
         }
 

@@ -4,21 +4,23 @@ import dev.kirillzhelt.registry.models.RegistryModel;
 import dev.kirillzhelt.registry.models.UserType;
 import dev.kirillzhelt.registry.views.RegistryView;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
 public class RegistryController {
 
-    public final EnumMap<UserType, ArrayList<Command>> commandHubsForUserTypes =
-        new EnumMap<UserType, ArrayList<Command>>(UserType.class) {{
-           put(UserType.Manager, new ArrayList<Command>() {{
+    private final EnumMap<UserType, ArrayList<ActionListener>> commandHubsForUserTypes =
+        new EnumMap<UserType, ArrayList<ActionListener>>(UserType.class) {{
+           put(UserType.Manager, new ArrayList<ActionListener>() {{
                add(RegistryController.this::getInformation);
                add(RegistryController.this::formReport); }});
-           put(UserType.Administrator, new ArrayList<Command>() {{
+           put(UserType.Administrator, new ArrayList<ActionListener>() {{
                add(RegistryController.this::getInformation);
                add(RegistryController.this::formReport);
                add(RegistryController.this::transferRoom); }});
-           put(UserType.Superintendent, new ArrayList<Command>() {{
+           put(UserType.Superintendent, new ArrayList<ActionListener>() {{
                add(RegistryController.this::bookKeys); }});
     }};
 
@@ -38,16 +40,20 @@ public class RegistryController {
     private RegistryView registryView;
     private RegistryModel registryModel;
 
-    public void getInformation() {
+    public void getInformation(ActionEvent e) {
+        System.out.println("getInformation");
     }
 
-    public void formReport() {
+    public void formReport(ActionEvent e) {
+        System.out.println("formReport");
     }
 
-    public void transferRoom() {
+    public void transferRoom(ActionEvent e) {
+        System.out.println("transferRoom");
     }
 
-    public void bookKeys() {
+    public void bookKeys(ActionEvent e) {
+        System.out.println("bookKeys");
     }
 
     public RegistryController(UserType userType) {
