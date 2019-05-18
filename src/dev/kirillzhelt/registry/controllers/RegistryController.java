@@ -4,12 +4,9 @@ import dev.kirillzhelt.registry.models.RegistryModel;
 import dev.kirillzhelt.registry.models.UserType;
 import dev.kirillzhelt.registry.views.ComboBoxView;
 import dev.kirillzhelt.registry.views.MenuView;
-import org.omg.CORBA.INTERNAL;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
@@ -89,14 +86,14 @@ public class RegistryController {
     }
 
     public void getRoomInformation(int roomNumber) {
-
+        // TODO: retrieve information about roomNumber
         System.out.println(roomNumber);
 
         System.out.println("getRoomInformation");
     }
 
     public void getUnitInformation(int unitNumber) {
-
+        // TODO: retrieve information about unitNumber
         System.out.println(unitNumber);
 
         System.out.println("getUnitInformation");
@@ -136,19 +133,19 @@ public class RegistryController {
     }
 
     public RegistryController(UserType userType) {
+        registryModel = new RegistryModel();
+
         registryView = new MenuView(this, commandHubsForUserTypes.get(userType),
             commandNamesForUserTypes.get(userType), true);
 
         selectInformationTypeMenu = new MenuView(this, informationTypesListeners,
             informationTypesNames, false);
 
-        // TODO: retrieve information about rooms
-        ArrayList<Integer> rooms = new ArrayList<Integer>() {{ add(1); add(2); add(3); }};
+        ArrayList<Integer> rooms = registryModel.getRoomsNumbers();
         selectRoomComboBox = new ComboBoxView(this, this::getRoomInformation, rooms,
             "Select room:", false);
 
-        // TODO: retrieve information about units
-        ArrayList<Integer> units = new ArrayList<Integer>() {{ add(1); add(2); }};
+        ArrayList<Integer> units = registryModel.getUnitsNumbers();
         selectUnitComboBox = new ComboBoxView(this, this::getUnitInformation, units,
             "Select unit: ", false);
     }
