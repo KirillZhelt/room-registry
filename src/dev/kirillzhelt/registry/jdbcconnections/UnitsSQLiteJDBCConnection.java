@@ -23,6 +23,20 @@ public class UnitsSQLiteJDBCConnection extends SQLiteJDBCConnection {
     }
 
     public Room selectRoom(int roomNumber) {
+        String selectRoomSql = "SELECT type, heads_room, square FROM rooms WHERE room_number=?";
+
+        try (PreparedStatement selectRoomStmt = connection.prepareStatement(selectRoomSql)) {
+            selectRoomStmt.setInt(1, roomNumber);
+
+            ResultSet rs = selectRoomStmt.executeQuery();
+
+            if (rs.next())
+                return new Room(roomNumber, rs.getString("type"), rs.getInt("heads_room"),
+                    rs.getDouble("square"));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
         return null;
     }
 

@@ -25,6 +25,6 @@ public class RegistryModel {
     }
 
     public Unit getUnit(int unitNumber) {
-        return null;
+        return unitsSQLiteJDBCConnection.selectUnit(unitNumber);
     }
 }

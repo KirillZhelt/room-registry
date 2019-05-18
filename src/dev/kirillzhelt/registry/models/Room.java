@@ -29,4 +29,14 @@ public class Room {
     public double getSquare() {
         return square;
     }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+            "number=" + number +
+            ", type='" + type + '\'' +
+            ", headsRoom=" + headsRoom +
+            ", square=" + square +
+            '}';
+    }
 }

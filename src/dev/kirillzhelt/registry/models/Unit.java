@@ -56,4 +56,17 @@ public class Unit {
     public void setRoomsNumbers(ArrayList<Integer> roomsNumbers) {
         this.roomsNumbers = roomsNumbers;
     }
+
+    @Override
+    public String toString() {
+        return "Unit{" +
+            "id=" + id +
+            ", superiorUnitId=" + superiorUnitId +
+            ", fullName='" + fullName + '\'' +
+            ", shortName='" + shortName + '\'' +
+            ", nameInGenetive='" + nameInGenetive + '\'' +
+            ", nameInDative='" + nameInDative + '\'' +
+            ", roomsNumbers=" + roomsNumbers +
+            '}';
+    }
 }

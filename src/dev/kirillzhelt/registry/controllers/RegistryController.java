@@ -91,6 +91,7 @@ public class RegistryController {
         Room room = registryModel.getRoom(roomNumber);
 
         // TODO: show room information
+        System.out.println(room);
 
         System.out.println("getRoomInformation");
     }
@@ -99,6 +100,7 @@ public class RegistryController {
         Unit unit = registryModel.getUnit(unitNumber);
 
         // TODO: show unit information
+        System.out.println(unit);
 
         System.out.println("getUnitInformation");
     }
