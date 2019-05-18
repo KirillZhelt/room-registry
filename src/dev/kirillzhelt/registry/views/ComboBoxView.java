@@ -3,6 +3,7 @@ package dev.kirillzhelt.registry.views;
 import dev.kirillzhelt.registry.controllers.RegistryController;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ public class ComboBoxView extends JFrame {
     private JButton jButton;
     private JLabel jLabel;
 
-    public ComboBoxView(RegistryController registryController, ActionListener listener,
+    public ComboBoxView(RegistryController registryController, InformationGetter informationGetter,
                         ArrayList<Integer> options, String text, boolean isVisible) {
         super(text);
 
@@ -27,7 +28,17 @@ public class ComboBoxView extends JFrame {
 
         jLabel.setText(text);
 
-        jButton.addActionListener(listener);
+        jButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    informationGetter.get((Integer)jComboBox.getSelectedItem());
+                    setVisible(false);
+                } catch (NullPointerException ex) {
+
+                }
+            }
+        });
 
         pack();
     }

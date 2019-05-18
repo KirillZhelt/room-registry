@@ -4,7 +4,9 @@ import dev.kirillzhelt.registry.models.RegistryModel;
 import dev.kirillzhelt.registry.models.UserType;
 import dev.kirillzhelt.registry.views.ComboBoxView;
 import dev.kirillzhelt.registry.views.MenuView;
+import org.omg.CORBA.INTERNAL;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -86,15 +88,17 @@ public class RegistryController {
         System.out.println("selectUnit");
     }
 
-    public void getRoomInformation(ActionEvent e) {
-        selectRoomComboBox.setVisible(false);
+    public void getRoomInformation(int roomNumber) {
+
+        System.out.println(roomNumber);
 
         System.out.println("getRoomInformation");
     }
 
-    public void getUnitInformation(ActionEvent e) {
-        selectUnitComboBox.setVisible(false);
-        
+    public void getUnitInformation(int unitNumber) {
+
+        System.out.println(unitNumber);
+
         System.out.println("getUnitInformation");
     }
 
