@@ -37,6 +37,16 @@ public class RegistryController {
                 add("Book keys"); }});
     }};
 
+    private final ArrayList<ActionListener> informationTypesListeners = new ArrayList<ActionListener>() {{
+        add(RegistryController.this::selectRoom);
+        add(RegistryController.this::selectUnit);
+    }};
+
+    public static final ArrayList<String> informationTypesNames = new ArrayList<String>() {{
+        add("Rooms");
+        add("Units");
+    }};
+    
     private MenuView registryView;
     private RegistryModel registryModel;
 
@@ -51,7 +61,7 @@ public class RegistryController {
             номер помещения, тип помещения, кабинет руководителя, приемная руководителя, лаборатория, цех,
             столовая, а также площадь помещения.
          */
-
+        MenuView selectInformationTypeMenu = new MenuView(this, );
 
 
         System.out.println("selectInformationType");
