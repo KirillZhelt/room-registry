@@ -25,7 +25,7 @@ public class RegistryController {
                add(RegistryController.this::selectReportType);
                add(RegistryController.this::transferRoom); }});
            put(UserType.Superintendent, new ArrayList<ActionListener>() {{
-               add(RegistryController.this::bookKeys); }});
+               add(RegistryController.this::selectRoomForBook); }});
     }};
 
     public static final EnumMap<UserType, ArrayList<String>> commandNamesForUserTypes =
@@ -57,6 +57,28 @@ public class RegistryController {
     private MenuView selectInformationTypeMenu;
     private ComboBoxView selectRoomComboBox;
     private ComboBoxView selectUnitComboBox;
+    private ComboBoxView selectRoomForBookComboBox;
+
+    public RegistryController(UserType userType) {
+        registryModel = new RegistryModel();
+
+        registryView = new MenuView(this, commandHubsForUserTypes.get(userType),
+            commandNamesForUserTypes.get(userType), true);
+
+        selectInformationTypeMenu = new MenuView(this, informationTypesListeners,
+            informationTypesNames, false);
+
+        ArrayList<Integer> rooms = registryModel.getRoomsNumbers();
+        selectRoomComboBox = new ComboBoxView(this, this::getRoomInformation, rooms,
+            "Select room:", false);
+
+        selectRoomForBookComboBox = new ComboBoxView(this, this::bookRoom,
+            rooms, "Select room:", false);
+
+        ArrayList<Integer> units = registryModel.getUnitsNumbers();
+        selectUnitComboBox = new ComboBoxView(this, this::getUnitInformation, units,
+            "Select unit: ", false);
+    }
 
     public void selectInformationType(ActionEvent e) {
         /*
@@ -127,31 +149,21 @@ public class RegistryController {
         System.out.println("transferRoom");
     }
 
-    public void bookKeys(ActionEvent e) {
+    public void selectRoomForBook(ActionEvent e) {
         /*
             Вариант использования “Заказать ключи”:
             Краткое описание:
             Данный вариант использования позволяет заведующему подразделением заказать ключи.
          */
+        selectRoomForBookComboBox.setVisible(true);
+
 
         System.out.println("bookKeys");
     }
 
-    public RegistryController(UserType userType) {
-        registryModel = new RegistryModel();
+    public void bookRoom(int roomNumber) {
+        LabelView labelView = new LabelView("Room", "Room " + roomNumber + " was booked");
 
-        registryView = new MenuView(this, commandHubsForUserTypes.get(userType),
-            commandNamesForUserTypes.get(userType), true);
-
-        selectInformationTypeMenu = new MenuView(this, informationTypesListeners,
-            informationTypesNames, false);
-
-        ArrayList<Integer> rooms = registryModel.getRoomsNumbers();
-        selectRoomComboBox = new ComboBoxView(this, this::getRoomInformation, rooms,
-            "Select room:", false);
-
-        ArrayList<Integer> units = registryModel.getUnitsNumbers();
-        selectUnitComboBox = new ComboBoxView(this, this::getUnitInformation, units,
-            "Select unit: ", false);
+        System.out.println("bookRoom");
     }
 }
