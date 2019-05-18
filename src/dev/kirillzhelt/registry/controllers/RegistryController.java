@@ -52,7 +52,25 @@ public class RegistryController {
             столовая, а также площадь помещения.
          */
 
+
+
         System.out.println("selectInformationType");
+    }
+
+    public void selectRoom(ActionEvent e) {
+
+    }
+
+    public void selectUnit(ActionEvent e) {
+
+    }
+
+    public void getRoomInformation(ActionEvent e) {
+
+    }
+
+    public void getUnitInformation(ActionEvent e) {
+
     }
 
     public void selectReportType(ActionEvent e) {
