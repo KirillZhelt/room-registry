@@ -5,6 +5,7 @@ import dev.kirillzhelt.registry.models.Room;
 import dev.kirillzhelt.registry.models.Unit;
 import dev.kirillzhelt.registry.models.UserType;
 import dev.kirillzhelt.registry.views.ComboBoxView;
+import dev.kirillzhelt.registry.views.LabelView;
 import dev.kirillzhelt.registry.views.MenuView;
 
 import java.awt.event.ActionEvent;
@@ -90,8 +91,7 @@ public class RegistryController {
     public void getRoomInformation(int roomNumber) {
         Room room = registryModel.getRoom(roomNumber);
 
-        // TODO: show room information
-        System.out.println(room);
+        LabelView labelView = new LabelView("Room", room.toHtmlString());
 
         System.out.println("getRoomInformation");
     }
@@ -99,8 +99,7 @@ public class RegistryController {
     public void getUnitInformation(int unitNumber) {
         Unit unit = registryModel.getUnit(unitNumber);
 
-        // TODO: show unit information
-        System.out.println(unit);
+        LabelView labelView = new LabelView("Unit", unit.toHtmlString());
 
         System.out.println("getUnitInformation");
     }

@@ -30,13 +30,11 @@ public class Room {
         return square;
     }
 
-    @Override
-    public String toString() {
-        return "Room{" +
-            "number=" + number +
-            ", type='" + type + '\'' +
-            ", headsRoom=" + headsRoom +
-            ", square=" + square +
-            '}';
+    public String toHtmlString() {
+        return "<html>Room " + number + ":<br>" +
+            "type: \'" + type + '\'' + "<br>" +
+            "heads room: " + headsRoom + "<br>" +
+            "square: " + square + "<br>" +
+            "</html>";
     }
 }

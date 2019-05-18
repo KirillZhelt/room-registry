@@ -57,16 +57,14 @@ public class Unit {
         this.roomsNumbers = roomsNumbers;
     }
 
-    @Override
-    public String toString() {
-        return "Unit{" +
-            "id=" + id +
-            ", superiorUnitId=" + superiorUnitId +
-            ", fullName='" + fullName + '\'' +
-            ", shortName='" + shortName + '\'' +
-            ", nameInGenetive='" + nameInGenetive + '\'' +
-            ", nameInDative='" + nameInDative + '\'' +
-            ", roomsNumbers=" + roomsNumbers +
-            '}';
+    public String toHtmlString() {
+        return "<html>Unit " +
+            + id + ":<br>" +
+            "superior unit: " + superiorUnitId + "<br>" +
+            "full name: '" + fullName + '\'' + "<br>" +
+            "short name: '" + shortName + '\'' + "<br>" +
+            "name in genetive: '" + nameInGenetive + '\'' + "<br>" +
+            "name in dative: '" + nameInDative + '\'' +
+            "</html>";
     }
 }
