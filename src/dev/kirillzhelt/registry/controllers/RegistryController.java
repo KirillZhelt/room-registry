@@ -2,7 +2,7 @@ package dev.kirillzhelt.registry.controllers;
 
 import dev.kirillzhelt.registry.models.RegistryModel;
 import dev.kirillzhelt.registry.models.UserType;
-import dev.kirillzhelt.registry.views.RegistryView;
+import dev.kirillzhelt.registry.views.MenuView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,11 +14,11 @@ public class RegistryController {
     private final EnumMap<UserType, ArrayList<ActionListener>> commandHubsForUserTypes =
         new EnumMap<UserType, ArrayList<ActionListener>>(UserType.class) {{
            put(UserType.Manager, new ArrayList<ActionListener>() {{
-               add(RegistryController.this::getInformation);
-               add(RegistryController.this::formReport); }});
+               add(RegistryController.this::selectInformationType);
+               add(RegistryController.this::selectReportType); }});
            put(UserType.Administrator, new ArrayList<ActionListener>() {{
-               add(RegistryController.this::getInformation);
-               add(RegistryController.this::formReport);
+               add(RegistryController.this::selectInformationType);
+               add(RegistryController.this::selectReportType);
                add(RegistryController.this::transferRoom); }});
            put(UserType.Superintendent, new ArrayList<ActionListener>() {{
                add(RegistryController.this::bookKeys); }});
@@ -37,10 +37,10 @@ public class RegistryController {
                 add("Book keys"); }});
     }};
 
-    private RegistryView registryView;
+    private MenuView registryView;
     private RegistryModel registryModel;
 
-    public void getInformation(ActionEvent e) {
+    public void selectInformationType(ActionEvent e) {
         /*
             Вариант использования “Получить сведения”:
             Краткое описание:
@@ -52,10 +52,10 @@ public class RegistryController {
             столовая, а также площадь помещения.
          */
 
-        System.out.println("getInformation");
+        System.out.println("selectInformationType");
     }
 
-    public void formReport(ActionEvent e) {
+    public void selectReportType(ActionEvent e) {
         /*
             Вариант использования “Получить отчёт”:
             Краткое описание:
@@ -64,7 +64,7 @@ public class RegistryController {
             2) список, отображающий иерархию;
          */
 
-        System.out.println("formReport");
+        System.out.println("selectReportType");
     }
 
     public void transferRoom(ActionEvent e) {
@@ -89,7 +89,7 @@ public class RegistryController {
     }
 
     public RegistryController(UserType userType) {
-        registryView = new RegistryView(this, commandHubsForUserTypes.get(userType),
+        registryView = new MenuView(this, commandHubsForUserTypes.get(userType),
             commandNamesForUserTypes.get(userType));
 
     }

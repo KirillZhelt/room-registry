@@ -7,10 +7,10 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class RegistryView extends JFrame {
+public class MenuView extends JFrame {
 
-    public RegistryView(RegistryController registryController, ArrayList<ActionListener> commandHub,
-                        ArrayList<String> commandNames) {
+    public MenuView(RegistryController registryController, ArrayList<ActionListener> commandHub,
+                    ArrayList<String> commandNames) {
         super("Registry");
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
