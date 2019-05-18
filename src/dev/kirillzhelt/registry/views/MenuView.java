@@ -13,7 +13,7 @@ public class MenuView extends JFrame {
                     ArrayList<String> buttonTexts, boolean isVisible) {
         super("Registry");
 
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(100, 50, 500, 600);
 
         GridLayout gridLayout = new GridLayout(listeners.size(), 1, 20, 20);

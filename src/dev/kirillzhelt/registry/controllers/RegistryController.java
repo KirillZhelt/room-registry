@@ -2,6 +2,7 @@ package dev.kirillzhelt.registry.controllers;
 
 import dev.kirillzhelt.registry.models.RegistryModel;
 import dev.kirillzhelt.registry.models.UserType;
+import dev.kirillzhelt.registry.views.ComboBoxView;
 import dev.kirillzhelt.registry.views.MenuView;
 
 import java.awt.event.ActionEvent;
@@ -52,6 +53,8 @@ public class RegistryController {
     private RegistryModel registryModel;
 
     private MenuView selectInformationTypeMenu;
+    private ComboBoxView selectRoomComboBox;
+    private ComboBoxView selectUnitComboBox;
 
     public void selectInformationType(ActionEvent e) {
         /*
@@ -71,22 +74,28 @@ public class RegistryController {
 
     public void selectRoom(ActionEvent e) {
         selectInformationTypeMenu.setVisible(false);
+        selectRoomComboBox.setVisible(true);
 
         System.out.println("selectRoom");
     }
 
     public void selectUnit(ActionEvent e) {
         selectInformationTypeMenu.setVisible(false);
+        selectUnitComboBox.setVisible(true);
 
         System.out.println("selectUnit");
     }
 
     public void getRoomInformation(ActionEvent e) {
+        selectRoomComboBox.setVisible(false);
 
+        System.out.println("getRoomInformation");
     }
 
     public void getUnitInformation(ActionEvent e) {
-
+        selectUnitComboBox.setVisible(false);
+        
+        System.out.println("getUnitInformation");
     }
 
     public void selectReportType(ActionEvent e) {
@@ -128,5 +137,15 @@ public class RegistryController {
 
         selectInformationTypeMenu = new MenuView(this, informationTypesListeners,
             informationTypesNames, false);
+
+        // TODO: retrieve information about rooms
+        ArrayList<Integer> rooms = new ArrayList<Integer>() {{ add(1); add(2); add(3); }};
+        selectRoomComboBox = new ComboBoxView(this, this::getRoomInformation, rooms,
+            "Select room:", false);
+
+        // TODO: retrieve information about units
+        ArrayList<Integer> units = new ArrayList<Integer>() {{ add(1); add(2); }};
+        selectUnitComboBox = new ComboBoxView(this, this::getUnitInformation, units,
+            "Select unit: ", false);
     }
 }
