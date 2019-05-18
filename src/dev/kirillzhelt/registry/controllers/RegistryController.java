@@ -6,6 +6,7 @@ import dev.kirillzhelt.registry.views.MenuView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
@@ -46,9 +47,11 @@ public class RegistryController {
         add("Rooms");
         add("Units");
     }};
-    
+
     private MenuView registryView;
     private RegistryModel registryModel;
+
+    private MenuView selectInformationTypeMenu;
 
     public void selectInformationType(ActionEvent e) {
         /*
@@ -61,18 +64,21 @@ public class RegistryController {
             номер помещения, тип помещения, кабинет руководителя, приемная руководителя, лаборатория, цех,
             столовая, а также площадь помещения.
          */
-        MenuView selectInformationTypeMenu = new MenuView(this, );
-
+        selectInformationTypeMenu.setVisible(true);
 
         System.out.println("selectInformationType");
     }
 
     public void selectRoom(ActionEvent e) {
+        selectInformationTypeMenu.setVisible(false);
 
+        System.out.println("selectRoom");
     }
 
     public void selectUnit(ActionEvent e) {
+        selectInformationTypeMenu.setVisible(false);
 
+        System.out.println("selectUnit");
     }
 
     public void getRoomInformation(ActionEvent e) {
@@ -118,7 +124,9 @@ public class RegistryController {
 
     public RegistryController(UserType userType) {
         registryView = new MenuView(this, commandHubsForUserTypes.get(userType),
-            commandNamesForUserTypes.get(userType));
+            commandNamesForUserTypes.get(userType), true);
 
+        selectInformationTypeMenu = new MenuView(this, informationTypesListeners,
+            informationTypesNames, false);
     }
 }
