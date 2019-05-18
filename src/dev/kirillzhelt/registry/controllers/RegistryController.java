@@ -1,6 +1,8 @@
 package dev.kirillzhelt.registry.controllers;
 
 import dev.kirillzhelt.registry.models.RegistryModel;
+import dev.kirillzhelt.registry.models.Room;
+import dev.kirillzhelt.registry.models.Unit;
 import dev.kirillzhelt.registry.models.UserType;
 import dev.kirillzhelt.registry.views.ComboBoxView;
 import dev.kirillzhelt.registry.views.MenuView;
@@ -86,15 +88,17 @@ public class RegistryController {
     }
 
     public void getRoomInformation(int roomNumber) {
-        // TODO: retrieve information about roomNumber
-        System.out.println(roomNumber);
+        Room room = registryModel.getRoom(roomNumber);
+
+        // TODO: show room information
 
         System.out.println("getRoomInformation");
     }
 
     public void getUnitInformation(int unitNumber) {
-        // TODO: retrieve information about unitNumber
-        System.out.println(unitNumber);
+        Unit unit = registryModel.getUnit(unitNumber);
+
+        // TODO: show unit information
 
         System.out.println("getUnitInformation");
     }

@@ -1,5 +1,8 @@
 package dev.kirillzhelt.registry.jdbcconnections;
 
+import dev.kirillzhelt.registry.models.Room;
+import dev.kirillzhelt.registry.models.Unit;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +20,14 @@ public class UnitsSQLiteJDBCConnection extends SQLiteJDBCConnection {
 
     public ArrayList<Integer> selectUnitsNumbers() {
         return selectPrimaryKeys("units", "unit_id");
+    }
+
+    public Room selectRoom(int roomNumber) {
+        return null;
+    }
+
+    public Unit selectUnit(int unitNumber) {
+        return null;
     }
 
     private ArrayList<Integer> selectPrimaryKeys(String tableName, String primaryKey) {

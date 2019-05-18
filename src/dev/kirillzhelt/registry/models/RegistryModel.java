@@ -20,4 +20,11 @@ public class RegistryModel {
         return unitsSQLiteJDBCConnection.selectUnitsNumbers();
     }
 
+    public Room getRoom(int roomNumber) {
+        return unitsSQLiteJDBCConnection.selectRoom(roomNumber);
+    }
+
+    public Unit getUnit(int unitNumber) {
+        return null;
+    }
 }
