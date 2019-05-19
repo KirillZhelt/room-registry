@@ -68,6 +68,7 @@ public class RegistryController {
     private ComboBoxView selectRoomComboBox;
     private ComboBoxView selectUnitComboBox;
     private ComboBoxView selectRoomForBookComboBox;
+    private ComboBoxView selectRoomForHierarchyReportComboBox;
 
     private ArrayList<Integer> roomsNumbers;
     private ArrayList<Integer> unitsNumbers;
@@ -94,6 +95,9 @@ public class RegistryController {
         unitsNumbers = registryModel.getUnitsNumbers();
         selectUnitComboBox = new ComboBoxView(this, this::getUnitInformation, unitsNumbers,
             "Select unit: ", false);
+
+        selectRoomForHierarchyReportComboBox = new ComboBoxView(this,
+            this::showUnitHierarchyReport, unitsNumbers, "Select unit: ", false);
     }
 
     public void selectInformationType(ActionEvent e) {
@@ -168,11 +172,24 @@ public class RegistryController {
     public void selectUnitForHierarchyReport(ActionEvent e) {
         selectReportTypeMenu.setVisible(false);
 
+        selectRoomForHierarchyReportComboBox.setVisible(true);
+
         System.out.println("selectUnitForHierarchyReport");
     }
 
     public void showUnitHierarchyReport(int unitNumber) {
+        ArrayList<Integer> hierarchy = registryModel.getUnitHierarchy(unitNumber);
 
+        StringBuilder hierarchyStringBuilder = new StringBuilder(Integer.toString(unitNumber));
+
+        for (Integer superiorUnitNumber : hierarchy) {
+            hierarchyStringBuilder.append(" <- ");
+            hierarchyStringBuilder.append(superiorUnitNumber);
+        }
+
+        LabelView labelView = new LabelView("Unit hierarchy", hierarchyStringBuilder.toString());
+
+        System.out.println("showUnitHierarchyReport");
     }
 
     public void selectRoomForTransfer(ActionEvent e) {

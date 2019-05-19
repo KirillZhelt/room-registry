@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.TreeMap;
 
 public class UnitsSQLiteJDBCConnection extends SQLiteJDBCConnection {
@@ -117,6 +118,23 @@ public class UnitsSQLiteJDBCConnection extends SQLiteJDBCConnection {
         }
 
         return roomsForUnits;
+    }
+
+    public int selectUnitSuperior(int unitNumber) {
+        String selectSuperiorSql = "SELECT superior_unit_id FROM units where unit_id=?";
+
+        try (PreparedStatement selectSuperiorStmt = connection.prepareStatement(selectSuperiorSql)) {
+            selectSuperiorStmt.setInt(1, unitNumber);
+
+            ResultSet rs = selectSuperiorStmt.executeQuery();
+            if (rs.next())
+                return rs.getInt("superior_unit_id");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        throw new NoSuchElementException("No unit with such unitNumber");
     }
 
     private void executeSql(String sql, int firstParameter, int secondParameter) {

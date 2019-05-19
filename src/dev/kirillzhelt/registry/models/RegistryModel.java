@@ -41,4 +41,20 @@ public class RegistryModel {
     public TreeMap<Integer, ArrayList<Integer>> getRoomsForUnits() {
         return unitsSQLiteJDBCConnection.selectRoomsForUnits();
     }
+
+    public ArrayList<Integer> getUnitHierarchy(int unitNumber) {
+        ArrayList<Integer> hierarchy = new ArrayList<>();
+
+        while (true) {
+            int superiorUnitNumber = unitsSQLiteJDBCConnection.selectUnitSuperior(unitNumber);
+
+            if (superiorUnitNumber == -1)
+                break;
+            
+            hierarchy.add(superiorUnitNumber);
+            unitNumber = superiorUnitNumber;
+        }
+
+        return hierarchy;
+    }
 }
