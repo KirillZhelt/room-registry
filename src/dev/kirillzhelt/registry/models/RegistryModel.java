@@ -27,4 +27,13 @@ public class RegistryModel {
     public Unit getUnit(int unitNumber) {
         return unitsSQLiteJDBCConnection.selectUnit(unitNumber);
     }
+
+    public ArrayList<Integer> getUnitRooms(int unitNumber) {
+        return unitsSQLiteJDBCConnection.selectUnitRooms(unitNumber);
+    }
+
+    public void transferRoom(int unitFrom, int room, int unitTo) {
+        unitsSQLiteJDBCConnection.deleteRoomForUnit(unitFrom, room);
+        unitsSQLiteJDBCConnection.addRoomForUnit(unitTo, room);
+    }
 }

@@ -7,6 +7,7 @@ import dev.kirillzhelt.registry.models.UserType;
 import dev.kirillzhelt.registry.views.ComboBoxView;
 import dev.kirillzhelt.registry.views.LabelView;
 import dev.kirillzhelt.registry.views.MenuView;
+import dev.kirillzhelt.registry.views.TransferRoomView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +24,7 @@ public class RegistryController {
            put(UserType.Administrator, new ArrayList<ActionListener>() {{
                add(RegistryController.this::selectInformationType);
                add(RegistryController.this::selectReportType);
-               add(RegistryController.this::transferRoom); }});
+               add(RegistryController.this::selectRoomForTransfer); }});
            put(UserType.Superintendent, new ArrayList<ActionListener>() {{
                add(RegistryController.this::selectRoomForBook); }});
     }};
@@ -59,6 +60,9 @@ public class RegistryController {
     private ComboBoxView selectUnitComboBox;
     private ComboBoxView selectRoomForBookComboBox;
 
+    private ArrayList<Integer> roomsNumbers;
+    private ArrayList<Integer> unitsNumbers;
+
     public RegistryController(UserType userType) {
         registryModel = new RegistryModel();
 
@@ -68,15 +72,15 @@ public class RegistryController {
         selectInformationTypeMenu = new MenuView(this, informationTypesListeners,
             informationTypesNames, false);
 
-        ArrayList<Integer> rooms = registryModel.getRoomsNumbers();
-        selectRoomComboBox = new ComboBoxView(this, this::getRoomInformation, rooms,
+        roomsNumbers = registryModel.getRoomsNumbers();
+        selectRoomComboBox = new ComboBoxView(this, this::getRoomInformation, roomsNumbers,
             "Select room:", false);
 
         selectRoomForBookComboBox = new ComboBoxView(this, this::bookRoom,
-            rooms, "Select room:", false);
+            roomsNumbers, "Select room:", false);
 
-        ArrayList<Integer> units = registryModel.getUnitsNumbers();
-        selectUnitComboBox = new ComboBoxView(this, this::getUnitInformation, units,
+        unitsNumbers = registryModel.getUnitsNumbers();
+        selectUnitComboBox = new ComboBoxView(this, this::getUnitInformation, unitsNumbers,
             "Select unit: ", false);
     }
 
@@ -138,15 +142,26 @@ public class RegistryController {
         System.out.println("selectReportType");
     }
 
-    public void transferRoom(ActionEvent e) {
+    public void selectRoomForTransfer(ActionEvent e) {
         /*
             Вариант использования “Передать помещение”:
             Краткое описание:
             Данный вариант использования позволяет управляющему помещениями передавать помещения
             от одного подразделения к другому.
          */
+        TransferRoomView transferRoomView = new TransferRoomView(this, unitsNumbers, true);
+
+        System.out.println("selectRoomForTransfer");
+    }
+
+    public void transferRoom(int unitFrom, int room, int unitTo) {
+        registryModel.transferRoom(unitFrom, room, unitTo);
 
         System.out.println("transferRoom");
+    }
+
+    public ArrayList<Integer> getUnitRooms(int unitNumber) {
+        return registryModel.getUnitRooms(unitNumber);
     }
 
     public void selectRoomForBook(ActionEvent e) {

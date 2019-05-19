@@ -59,6 +59,48 @@ public class UnitsSQLiteJDBCConnection extends SQLiteJDBCConnection {
         return null;
     }
 
+    public ArrayList<Integer> selectUnitRooms(int unitNumber) {
+        ArrayList<Integer> roomsNumbers = new ArrayList<>();
+
+        String selectRoomsSql = "SELECT rooms_room_number FROM rooms_for_units WHERE units_unit_id=?";
+
+        try (PreparedStatement selectRoomsStmt = connection.prepareStatement(selectRoomsSql)) {
+            selectRoomsStmt.setInt(1, unitNumber);
+
+            ResultSet rs = selectRoomsStmt.executeQuery();
+
+            while (rs.next())
+                roomsNumbers.add(rs.getInt("rooms_room_number"));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return roomsNumbers;
+    }
+
+    public void deleteRoomForUnit(int unitNumber, int roomNumber) {
+        String deleteRoomSql = "DELETE FROM rooms_for_units WHERE units_unit_id=? and rooms_room_number=?";
+
+        executeSql(deleteRoomSql, unitNumber, roomNumber);
+    }
+
+    public void addRoomForUnit(int unitNumber, int roomNumber) {
+        String addRoomSql = "INSERT INTO rooms_for_units(units_unit_id, rooms_room_number) VALUES(?, ?)";
+
+        executeSql(addRoomSql, unitNumber, roomNumber);
+    }
+
+    private void executeSql(String sql, int firstParameter, int secondParameter) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, firstParameter);
+            stmt.setInt(2, secondParameter);
+
+            stmt.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private ArrayList<Integer> selectPrimaryKeys(String tableName, String primaryKey) {
         ArrayList<Integer> primaryKeys = new ArrayList<>();
 
@@ -75,5 +117,7 @@ public class UnitsSQLiteJDBCConnection extends SQLiteJDBCConnection {
 
         return primaryKeys;
     }
+
+
 
 }
