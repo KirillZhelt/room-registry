@@ -57,6 +57,8 @@ public class TableView extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
+        setBounds(750, 250, 500, 600);
+
         setContentPane(jPanelMain);
 
         UnitsTableModel unitsTableModel = new UnitsTableModel(roomsForUnits);
