@@ -4,10 +4,7 @@ import dev.kirillzhelt.registry.models.RegistryModel;
 import dev.kirillzhelt.registry.models.Room;
 import dev.kirillzhelt.registry.models.Unit;
 import dev.kirillzhelt.registry.models.UserType;
-import dev.kirillzhelt.registry.views.ComboBoxView;
-import dev.kirillzhelt.registry.views.LabelView;
-import dev.kirillzhelt.registry.views.MenuView;
-import dev.kirillzhelt.registry.views.TransferRoomView;
+import dev.kirillzhelt.registry.views.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -163,7 +160,7 @@ public class RegistryController {
 
         TreeMap<Integer, ArrayList<Integer>> roomsForUnits = registryModel.getRoomsForUnits();
 
-
+        TableView roomsForUnitsView = new TableView(this, roomsForUnits, true);
 
         System.out.println("showRoomsForUnits");
     }
