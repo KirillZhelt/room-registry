@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.TreeMap;
 
 public class RegistryController {
 
@@ -159,6 +160,9 @@ public class RegistryController {
 
     public void showRoomsForUnits(ActionEvent e) {
         selectReportTypeMenu.setVisible(false);
+
+        TreeMap<Integer, ArrayList<Integer>> roomsForUnits = registryModel.getRoomsForUnits();
+
 
         System.out.println("showRoomsForUnits");
     }

@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class UnitsSQLiteJDBCConnection extends SQLiteJDBCConnection {
 
@@ -88,6 +89,10 @@ public class UnitsSQLiteJDBCConnection extends SQLiteJDBCConnection {
         String addRoomSql = "INSERT INTO rooms_for_units(units_unit_id, rooms_room_number) VALUES(?, ?)";
 
         executeSql(addRoomSql, unitNumber, roomNumber);
+    }
+
+    public TreeMap<Integer, ArrayList<Integer>> selectRoomsForUnits() {
+        
     }
 
     private void executeSql(String sql, int firstParameter, int secondParameter) {
