@@ -155,6 +155,8 @@ public class RegistryController {
     }
 
     public void transferRoom(int unitFrom, int room, int unitTo) {
+        registryModel.transferRoom(unitFrom, room, unitTo);
+
         System.out.println("transferRoom");
     }
 
