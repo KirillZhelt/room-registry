@@ -21,6 +21,8 @@ public class TransferRoomView extends JFrame {
 
         setContentPane(jPanelMain);
 
+        setBounds(750, 250, 500, 600);
+
         jLabelInvalid.setVisible(false);
 
         for (Integer roomNumber : roomsNumbers) {

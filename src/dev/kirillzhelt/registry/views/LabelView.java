@@ -12,6 +12,8 @@ public class LabelView extends JFrame {
 
         setContentPane(jPanelMain);
 
+        setBounds(750, 250, 500, 600);
+
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         jLabel.setText(text);
