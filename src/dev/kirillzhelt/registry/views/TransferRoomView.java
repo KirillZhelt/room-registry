@@ -3,10 +3,7 @@ package dev.kirillzhelt.registry.views;
 import dev.kirillzhelt.registry.controllers.RegistryController;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class TransferRoomView extends JFrame {
@@ -63,11 +60,12 @@ public class TransferRoomView extends JFrame {
                     int unitFrom = (Integer)jComboBoxUnitFrom.getSelectedItem();
                     int room = (Integer)jComboBoxRoom.getSelectedItem();
                     int unitTo = (Integer)jComboBoxUnitTo.getSelectedItem();
+
+                    registryController.transferRoom(unitFrom, room, unitTo);
+                    TransferRoomView.this.dispatchEvent(new WindowEvent(TransferRoomView.this, WindowEvent.WINDOW_CLOSING));
                 } catch (NullPointerException nullPointerException) {
                     showInvalidData();
                 }
-
-                
             }
         });
 

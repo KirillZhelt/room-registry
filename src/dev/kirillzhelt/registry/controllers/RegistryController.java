@@ -154,7 +154,7 @@ public class RegistryController {
         System.out.println("selectRoomForTransfer");
     }
 
-    public void transferRoom(Unit from, Room room, Unit to) {
+    public void transferRoom(int unitFrom, int room, int unitTo) {
         System.out.println("transferRoom");
     }
 
