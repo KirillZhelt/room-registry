@@ -149,7 +149,7 @@ public class RegistryController {
             Данный вариант использования позволяет управляющему помещениями передавать помещения
             от одного подразделения к другому.
          */
-        TransferRoomView transferRoomView = new TransferRoomView(roomsNumbers, true);
+        TransferRoomView transferRoomView = new TransferRoomView(this, unitsNumbers, true);
 
         System.out.println("selectRoomForTransfer");
     }
@@ -159,7 +159,7 @@ public class RegistryController {
     }
 
     public ArrayList<Integer> getUnitRooms(int unitNumber) {
-
+        return registryModel.getUnitRooms(unitNumber);
     }
 
     public void selectRoomForBook(ActionEvent e) {

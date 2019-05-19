@@ -27,4 +27,8 @@ public class RegistryModel {
     public Unit getUnit(int unitNumber) {
         return unitsSQLiteJDBCConnection.selectUnit(unitNumber);
     }
+
+    public ArrayList<Integer> getUnitRooms(int unitNumber) {
+        return unitsSQLiteJDBCConnection.selectUnitRooms(unitNumber);
+    }
 }

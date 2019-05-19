@@ -59,6 +59,25 @@ public class UnitsSQLiteJDBCConnection extends SQLiteJDBCConnection {
         return null;
     }
 
+    public ArrayList<Integer> selectUnitRooms(int unitNumber) {
+        ArrayList<Integer> roomsNumbers = new ArrayList<>();
+
+        String selectRoomsSql = "SELECT rooms_room_number FROM rooms_for_units WHERE units_unit_id=?";
+
+        try (PreparedStatement selectRoomsStmt = connection.prepareStatement(selectRoomsSql)) {
+            selectRoomsStmt.setInt(1, unitNumber);
+
+            ResultSet rs = selectRoomsStmt.executeQuery();
+
+            while (rs.next())
+                roomsNumbers.add(rs.getInt("rooms_room_number"));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return roomsNumbers;
+    }
+
     private ArrayList<Integer> selectPrimaryKeys(String tableName, String primaryKey) {
         ArrayList<Integer> primaryKeys = new ArrayList<>();
 
@@ -75,5 +94,7 @@ public class UnitsSQLiteJDBCConnection extends SQLiteJDBCConnection {
 
         return primaryKeys;
     }
+
+
 
 }
