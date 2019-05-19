@@ -6,6 +6,7 @@ import dev.kirillzhelt.registry.models.Unit;
 import dev.kirillzhelt.registry.models.UserType;
 import dev.kirillzhelt.registry.views.*;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -77,13 +78,13 @@ public class RegistryController {
         registryModel = new RegistryModel();
 
         registryView = new MenuView(this, commandHubsForUserTypes.get(userType),
-            commandNamesForUserTypes.get(userType), true);
+            commandNamesForUserTypes.get(userType), true, WindowConstants.EXIT_ON_CLOSE);
 
         selectInformationTypeMenu = new MenuView(this, informationTypesListeners,
-            informationTypesNames, false);
+            informationTypesNames, false, WindowConstants.DISPOSE_ON_CLOSE);
 
         selectReportTypeMenu = new MenuView(this, reportTypesListeners, reportTypesNames,
-            false);
+            false, WindowConstants.DISPOSE_ON_CLOSE);
 
         roomsNumbers = registryModel.getRoomsNumbers();
         selectRoomComboBox = new ComboBoxView(this, this::getRoomInformation, roomsNumbers,
