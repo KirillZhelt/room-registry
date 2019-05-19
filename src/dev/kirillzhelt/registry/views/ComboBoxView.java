@@ -20,6 +20,7 @@ public class ComboBoxView extends JFrame {
 
         setContentPane(jPanelMain);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setBounds(750, 250, 500, 600);
 
         setVisible(isVisible);
 
