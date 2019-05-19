@@ -52,10 +52,21 @@ public class RegistryController {
         add("Units");
     }};
 
+    private final ArrayList<ActionListener> reportTypesListeners = new ArrayList<ActionListener>() {{
+        add(RegistryController.this::showRoomsForUnits);
+        add(RegistryController.this::selectUnitForHierarchyReport);
+    }};
+
+    public static final ArrayList<String> reportTypesNames = new ArrayList<String>() {{
+       add("Show rooms for units");
+       add("Show unit hierarchy");
+    }};
+
     private MenuView registryView;
     private RegistryModel registryModel;
 
     private MenuView selectInformationTypeMenu;
+    private MenuView selectReportTypeMenu;
     private ComboBoxView selectRoomComboBox;
     private ComboBoxView selectUnitComboBox;
     private ComboBoxView selectRoomForBookComboBox;
@@ -71,6 +82,9 @@ public class RegistryController {
 
         selectInformationTypeMenu = new MenuView(this, informationTypesListeners,
             informationTypesNames, false);
+
+        selectReportTypeMenu = new MenuView(this, reportTypesListeners, reportTypesNames,
+            false);
 
         roomsNumbers = registryModel.getRoomsNumbers();
         selectRoomComboBox = new ComboBoxView(this, this::getRoomInformation, roomsNumbers,
@@ -138,8 +152,25 @@ public class RegistryController {
             один из видов отчёта: 1) список подразделений и перечень занимаемых им помещений;
             2) список, отображающий иерархию;
          */
+        selectReportTypeMenu.setVisible(true);
 
         System.out.println("selectReportType");
+    }
+
+    public void showRoomsForUnits(ActionEvent e) {
+        selectReportTypeMenu.setVisible(false);
+
+        System.out.println("showRoomsForUnits");
+    }
+
+    public void selectUnitForHierarchyReport(ActionEvent e) {
+        selectReportTypeMenu.setVisible(false);
+
+        System.out.println("selectUnitForHierarchyReport");
+    }
+
+    public void showUnitHierarchyReport(int unitNumber) {
+
     }
 
     public void selectRoomForTransfer(ActionEvent e) {
