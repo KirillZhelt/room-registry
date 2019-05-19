@@ -21,6 +21,8 @@ public class LoginView extends JFrame {
         setContentPane(jPanelMain);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+        setBounds(700, 200, 600, 600);
+
         pack();
         setVisible(true);
 
