@@ -162,7 +162,7 @@ public class RegistryController {
         selectReportTypeMenu.setVisible(false);
 
         TreeMap<Integer, ArrayList<Integer>> roomsForUnits = registryModel.getRoomsForUnits();
-
+        System.out.println(roomsForUnits);
 
         System.out.println("showRoomsForUnits");
     }

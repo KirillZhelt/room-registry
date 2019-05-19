@@ -92,7 +92,31 @@ public class UnitsSQLiteJDBCConnection extends SQLiteJDBCConnection {
     }
 
     public TreeMap<Integer, ArrayList<Integer>> selectRoomsForUnits() {
-        
+        TreeMap<Integer, ArrayList<Integer>> roomsForUnits = new TreeMap<>();
+
+        String selectRoomsSql = "SELECT units_unit_id, rooms_room_number FROM rooms_for_units";
+
+        try (PreparedStatement selectRoomsStmt = connection.prepareStatement(selectRoomsSql)) {
+            ResultSet rs = selectRoomsStmt.executeQuery();
+
+            while (rs.next()) {
+                int unitNumber = rs.getInt("units_unit_id");
+                int roomNumber = rs.getInt("rooms_room_number");
+
+                ArrayList<Integer> roomsNumbers = roomsForUnits.get(unitNumber);
+                if (roomsNumbers == null) {
+                    roomsNumbers = new ArrayList<>();
+
+                    roomsForUnits.put(unitNumber, roomsNumbers);
+                }
+
+                roomsNumbers.add(roomNumber);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return roomsForUnits;
     }
 
     private void executeSql(String sql, int firstParameter, int secondParameter) {
