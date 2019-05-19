@@ -3,6 +3,8 @@ package dev.kirillzhelt.registry.views;
 import dev.kirillzhelt.registry.controllers.RegistryController;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ public class TransferRoomView extends JFrame {
     private JComboBox jComboBoxRoom;
     private JComboBox jComboBoxUnitTo;
     private JButton jButtonTransfer;
+    private JLabel jLabelInvalid;
 
     public TransferRoomView(RegistryController registryController, ArrayList<Integer> roomsNumbers,
                             boolean isVisible) {
@@ -21,8 +24,7 @@ public class TransferRoomView extends JFrame {
 
         setContentPane(jPanelMain);
 
-        jComboBoxRoom.setEnabled(false);
-        jComboBoxUnitTo.setEnabled(false);
+        jLabelInvalid.setVisible(false);
 
         for (Integer roomNumber : roomsNumbers) {
             jComboBoxUnitFrom.addItem(roomNumber);
@@ -32,6 +34,8 @@ public class TransferRoomView extends JFrame {
         if (!roomsNumbers.isEmpty()) {
             jComboBoxUnitFrom.setSelectedItem(roomsNumbers.get(0));
             jComboBoxUnitTo.removeItem(roomsNumbers.get(0));
+
+            setComboBoxRoom(registryController, roomsNumbers.get(0));
         }
 
         jComboBoxUnitFrom.addItemListener(new ItemListener() {
@@ -46,19 +50,41 @@ public class TransferRoomView extends JFrame {
                     int selectedUnit = (Integer)e.getItem();
 
                     jComboBoxUnitTo.removeItem(selectedUnit);
-                    jComboBoxUnitTo.setEnabled(true);
 
-                    ArrayList<Integer> roomsNumbers = registryController.getUnitRooms(selectedUnit);
-
-                    for (Integer roomNumber : roomsNumbers)
-                        jComboBoxRoom.addItem(roomNumber);
-
-                    jComboBoxRoom.setEnabled(true);
+                    setComboBoxRoom(registryController, selectedUnit);
                 }
+            }
+        });
+
+        jButtonTransfer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int unitFrom = (Integer)jComboBoxUnitFrom.getSelectedItem();
+                    int room = (Integer)jComboBoxRoom.getSelectedItem();
+                    int unitTo = (Integer)jComboBoxUnitTo.getSelectedItem();
+                } catch (NullPointerException nullPointerException) {
+                    showInvalidData();
+                }
+
+                
             }
         });
 
         pack();
         setVisible(isVisible);
+    }
+
+    private void setComboBoxRoom(RegistryController registryController, int unitNumber) {
+        ArrayList<Integer> roomsNumbers = registryController.getUnitRooms(unitNumber);
+
+        jComboBoxRoom.removeAllItems();
+
+        for (Integer roomNumber : roomsNumbers)
+            jComboBoxRoom.addItem(roomNumber);
+    }
+
+    private void showInvalidData() {
+        jLabelInvalid.setVisible(true);
     }
 }
