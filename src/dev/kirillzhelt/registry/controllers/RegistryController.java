@@ -4,15 +4,13 @@ import dev.kirillzhelt.registry.models.RegistryModel;
 import dev.kirillzhelt.registry.models.Room;
 import dev.kirillzhelt.registry.models.Unit;
 import dev.kirillzhelt.registry.models.UserType;
-import dev.kirillzhelt.registry.views.ComboBoxView;
-import dev.kirillzhelt.registry.views.LabelView;
-import dev.kirillzhelt.registry.views.MenuView;
-import dev.kirillzhelt.registry.views.TransferRoomView;
+import dev.kirillzhelt.registry.views.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.TreeMap;
 
 public class RegistryController {
 
@@ -52,13 +50,25 @@ public class RegistryController {
         add("Units");
     }};
 
+    private final ArrayList<ActionListener> reportTypesListeners = new ArrayList<ActionListener>() {{
+        add(RegistryController.this::showRoomsForUnits);
+        add(RegistryController.this::selectUnitForHierarchyReport);
+    }};
+
+    public static final ArrayList<String> reportTypesNames = new ArrayList<String>() {{
+       add("Show rooms for units");
+       add("Show unit hierarchy");
+    }};
+
     private MenuView registryView;
     private RegistryModel registryModel;
 
     private MenuView selectInformationTypeMenu;
+    private MenuView selectReportTypeMenu;
     private ComboBoxView selectRoomComboBox;
     private ComboBoxView selectUnitComboBox;
     private ComboBoxView selectRoomForBookComboBox;
+    private ComboBoxView selectRoomForHierarchyReportComboBox;
 
     private ArrayList<Integer> roomsNumbers;
     private ArrayList<Integer> unitsNumbers;
@@ -72,6 +82,9 @@ public class RegistryController {
         selectInformationTypeMenu = new MenuView(this, informationTypesListeners,
             informationTypesNames, false);
 
+        selectReportTypeMenu = new MenuView(this, reportTypesListeners, reportTypesNames,
+            false);
+
         roomsNumbers = registryModel.getRoomsNumbers();
         selectRoomComboBox = new ComboBoxView(this, this::getRoomInformation, roomsNumbers,
             "Select room:", false);
@@ -82,6 +95,9 @@ public class RegistryController {
         unitsNumbers = registryModel.getUnitsNumbers();
         selectUnitComboBox = new ComboBoxView(this, this::getUnitInformation, unitsNumbers,
             "Select unit: ", false);
+
+        selectRoomForHierarchyReportComboBox = new ComboBoxView(this,
+            this::showUnitHierarchyReport, unitsNumbers, "Select unit: ", false);
     }
 
     public void selectInformationType(ActionEvent e) {
@@ -138,8 +154,42 @@ public class RegistryController {
             один из видов отчёта: 1) список подразделений и перечень занимаемых им помещений;
             2) список, отображающий иерархию;
          */
+        selectReportTypeMenu.setVisible(true);
 
         System.out.println("selectReportType");
+    }
+
+    public void showRoomsForUnits(ActionEvent e) {
+        selectReportTypeMenu.setVisible(false);
+
+        TreeMap<Integer, ArrayList<Integer>> roomsForUnits = registryModel.getRoomsForUnits();
+
+        TableView roomsForUnitsView = new TableView(this, roomsForUnits, true);
+
+        System.out.println("showRoomsForUnits");
+    }
+
+    public void selectUnitForHierarchyReport(ActionEvent e) {
+        selectReportTypeMenu.setVisible(false);
+
+        selectRoomForHierarchyReportComboBox.setVisible(true);
+
+        System.out.println("selectUnitForHierarchyReport");
+    }
+
+    public void showUnitHierarchyReport(int unitNumber) {
+        ArrayList<Integer> hierarchy = registryModel.getUnitHierarchy(unitNumber);
+
+        StringBuilder hierarchyStringBuilder = new StringBuilder(Integer.toString(unitNumber));
+
+        for (Integer superiorUnitNumber : hierarchy) {
+            hierarchyStringBuilder.append(" <- ");
+            hierarchyStringBuilder.append(superiorUnitNumber);
+        }
+
+        LabelView labelView = new LabelView("Unit hierarchy", hierarchyStringBuilder.toString());
+
+        System.out.println("showUnitHierarchyReport");
     }
 
     public void selectRoomForTransfer(ActionEvent e) {

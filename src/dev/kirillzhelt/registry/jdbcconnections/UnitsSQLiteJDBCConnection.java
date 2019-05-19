@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import java.util.TreeMap;
 
 public class UnitsSQLiteJDBCConnection extends SQLiteJDBCConnection {
 
@@ -88,6 +90,51 @@ public class UnitsSQLiteJDBCConnection extends SQLiteJDBCConnection {
         String addRoomSql = "INSERT INTO rooms_for_units(units_unit_id, rooms_room_number) VALUES(?, ?)";
 
         executeSql(addRoomSql, unitNumber, roomNumber);
+    }
+
+    public TreeMap<Integer, ArrayList<Integer>> selectRoomsForUnits() {
+        TreeMap<Integer, ArrayList<Integer>> roomsForUnits = new TreeMap<>();
+
+        String selectRoomsSql = "SELECT units_unit_id, rooms_room_number FROM rooms_for_units";
+
+        try (PreparedStatement selectRoomsStmt = connection.prepareStatement(selectRoomsSql)) {
+            ResultSet rs = selectRoomsStmt.executeQuery();
+
+            while (rs.next()) {
+                int unitNumber = rs.getInt("units_unit_id");
+                int roomNumber = rs.getInt("rooms_room_number");
+
+                ArrayList<Integer> roomsNumbers = roomsForUnits.get(unitNumber);
+                if (roomsNumbers == null) {
+                    roomsNumbers = new ArrayList<>();
+
+                    roomsForUnits.put(unitNumber, roomsNumbers);
+                }
+
+                roomsNumbers.add(roomNumber);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return roomsForUnits;
+    }
+
+    public int selectUnitSuperior(int unitNumber) {
+        String selectSuperiorSql = "SELECT superior_unit_id FROM units where unit_id=?";
+
+        try (PreparedStatement selectSuperiorStmt = connection.prepareStatement(selectSuperiorSql)) {
+            selectSuperiorStmt.setInt(1, unitNumber);
+
+            ResultSet rs = selectSuperiorStmt.executeQuery();
+            if (rs.next())
+                return rs.getInt("superior_unit_id");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        throw new NoSuchElementException("No unit with such unitNumber");
     }
 
     private void executeSql(String sql, int firstParameter, int secondParameter) {

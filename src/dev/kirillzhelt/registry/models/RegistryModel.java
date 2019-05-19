@@ -3,6 +3,7 @@ package dev.kirillzhelt.registry.models;
 import dev.kirillzhelt.registry.jdbcconnections.UnitsSQLiteJDBCConnection;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class RegistryModel {
 
@@ -35,5 +36,25 @@ public class RegistryModel {
     public void transferRoom(int unitFrom, int room, int unitTo) {
         unitsSQLiteJDBCConnection.deleteRoomForUnit(unitFrom, room);
         unitsSQLiteJDBCConnection.addRoomForUnit(unitTo, room);
+    }
+
+    public TreeMap<Integer, ArrayList<Integer>> getRoomsForUnits() {
+        return unitsSQLiteJDBCConnection.selectRoomsForUnits();
+    }
+
+    public ArrayList<Integer> getUnitHierarchy(int unitNumber) {
+        ArrayList<Integer> hierarchy = new ArrayList<>();
+
+        while (true) {
+            int superiorUnitNumber = unitsSQLiteJDBCConnection.selectUnitSuperior(unitNumber);
+
+            if (superiorUnitNumber == -1)
+                break;
+            
+            hierarchy.add(superiorUnitNumber);
+            unitNumber = superiorUnitNumber;
+        }
+
+        return hierarchy;
     }
 }
